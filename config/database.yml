@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  database: <%= ENV.fetch("DB_SCHEMA") { "playground" } %>
+  host: <%= ENV.fetch("DB_HOSTNAME") { "localhost" } %>
+  port: <%= ENV.fetch("DB_PORT") { 5432 } %>
+  username: <%= ENV.fetch("DB_USERNAME") { "playground" } %>
+  password: <%= ENV.fetch("DB_PASSWORD") { "password" } %>
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: playground_dev
+
+test:
+  <<: *default
+  database: playground_test
+
+production:
+  <<: *default
